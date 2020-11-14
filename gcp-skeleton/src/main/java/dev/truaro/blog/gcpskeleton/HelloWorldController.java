@@ -1,4 +1,4 @@
-package dev.truaro.com.gcpskeleton;
+package dev.truaro.blog.gcpskeleton;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,5 +10,4 @@ public class HelloWorldController {
     public String helloWorld() {
         return "Hello World";
     }
-
 }

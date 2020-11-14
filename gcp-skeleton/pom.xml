@@ -8,7 +8,7 @@
 		<version>2.4.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>dev.truaro.com</groupId>
+	<groupId>dev.truaro.blog</groupId>
 	<artifactId>gcp-skeleton</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gcp-skeleton</name>
