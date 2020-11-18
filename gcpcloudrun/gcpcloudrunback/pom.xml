@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>dev.truaro.blog</groupId>
-	<artifactId>gcp-skeleton</artifactId>
+	<artifactId>gcpcloudrunback</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gcp-skeleton</name>
-	<description>Skeleton project to follow the blog instruction</description>
+	<name>GCP Cloud run Back office</name>
+	<description>My awesome back office fully managed by Cloud Run</description>
 
 	<properties>
 		<java.version>11</java.version>
