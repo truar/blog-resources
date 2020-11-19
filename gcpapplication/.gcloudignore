@@ -1,0 +1,13 @@
+.git
+dist
+node_modules
+vendor
+*.jar
+target
+.firebase
+.mvn
+.idea
+*.iml
+mvnw*
+build
+.gradle
