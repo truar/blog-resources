@@ -11,8 +11,8 @@
 	<groupId>dev.truaro.blog</groupId>
 	<artifactId>gcpcloudrunback</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>GCP Cloud run Back office</name>
-	<description>My awesome back office fully managed by Cloud Run</description>
+	<name>GCP Cloud run Backend</name>
+	<description>My awesome backend fully managed by Cloud Run</description>
 
 	<properties>
 		<java.version>11</java.version>
