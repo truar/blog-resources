@@ -1,0 +1,29 @@
+steps:
+  - id: 'dockerize-project'
+    name: gcr.io/cloud-builders/docker
+    dir: gcpcloudrunback
+    args: ['build',
+           '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA',
+           '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest',
+           '.']
+
+  - id: 'push-to-cloud-registry'
+    name: gcr.io/cloud-builders/docker
+    args: ['push', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest']
+
+  - id: 'deploy-cloud-run'
+    name: gcr.io/cloud-builders/gcloud
+    dir: gcpcloudrunback
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        gcloud beta run services replace gcp-cloudrun-back.yaml \
+          --platform=managed --region=europe-west1
+        gcloud run services add-iam-policy-binding gcp-cloudrun-back \
+          --platform=managed --region=europe-west1 \
+          --member="allUsers" --role="roles/run.invoker"
+
+images:
+  - 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest'

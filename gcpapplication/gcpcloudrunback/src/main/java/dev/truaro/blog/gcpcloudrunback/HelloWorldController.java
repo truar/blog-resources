@@ -8,7 +8,7 @@ public class HelloWorldController {
 
     @GetMapping("/")
     public String helloWorld() {
-        return "Hello World";
+        return "Hello World. I am deployed automatically";
     }
 
 }
