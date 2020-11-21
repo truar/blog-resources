@@ -9,7 +9,7 @@ steps:
 
   - id: 'push-to-cloud-registry'
     name: gcr.io/cloud-builders/docker
-    args: ['push', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest']
+    args: ['push', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA']
 
   - id: 'deploy-cloud-run'
     name: gcr.io/cloud-builders/gcloud
@@ -18,7 +18,13 @@ steps:
     args:
       - '-c'
       - |
-        gcloud beta run services replace gcp-cloudrun-back.yaml \
+        apt-get update
+        apt-get install -qq -y gettext
+        export PROJECT_ID=$PROJECT_ID
+        export IMAGE_VERSION=$SHORT_SHA
+        export SCALING_INSTANCE_COUNT=${_SCALING_INSTANCE_COUNT}
+        envsubst < gcp-cloudrun-back.yaml > gcp-cloudrun-back_with_env.yaml
+        gcloud beta run services replace gcp-cloudrun-back_with_env.yaml \
           --platform=managed --region=europe-west1
         gcloud run services add-iam-policy-binding gcp-cloudrun-back \
           --platform=managed --region=europe-west1 \

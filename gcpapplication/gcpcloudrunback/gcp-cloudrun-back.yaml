@@ -9,13 +9,13 @@ spec:
   template:
     metadata:
       annotations:
-        autoscaling.knative.dev/maxScale: '3'
+        autoscaling.knative.dev/maxScale: '$SCALING_INSTANCE_COUNT'
     spec:
       serviceAccountName: gcp-cloudrun-back
       containerConcurrency: 80
       timeoutSeconds: 300
       containers:
-        - image: gcr.io/truaro-resources/gcp-cloudrun-back:latest
+        - image: gcr.io/$PROJECT_ID/gcp-cloudrun-back:$IMAGE_VERSION
           resources:
             limits:
               cpu: 1000m
