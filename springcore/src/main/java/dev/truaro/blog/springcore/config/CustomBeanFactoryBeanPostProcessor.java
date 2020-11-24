@@ -8,8 +8,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 public class CustomBeanFactoryBeanPostProcessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
-//        BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition("memberRepository");
-//        System.out.println(beanDefinition.hasPropertyValues());
-//        System.out.println(beanDefinition.getPropertyValues());
+        BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition("memberRepository");
+        System.out.println(beanDefinition.hasPropertyValues());
+        System.out.println(beanDefinition.getPropertyValues());
     }
 }
