@@ -2,14 +2,14 @@ steps:
   - id: 'dockerize-project'
     name: gcr.io/cloud-builders/docker
     dir: gcpcloudrunback
-    args: ['build',
-           '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA',
-           '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest',
-           '.']
+    args: [ 'build',
+            '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA',
+            '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest',
+            '.' ]
 
   - id: 'push-to-cloud-registry'
     name: gcr.io/cloud-builders/docker
-    args: ['push', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA']
+    args: [ 'push', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA' ]
 
   - id: 'deploy-cloud-run'
     name: gcr.io/cloud-builders/gcloud
@@ -29,6 +29,19 @@ steps:
         gcloud run services add-iam-policy-binding gcp-cloudrun-back \
           --platform=managed --region=europe-west1 \
           --member="allUsers" --role="roles/run.invoker"
+
+  - id: 'build-front'
+    waitFor: [ '-' ]
+    name: node
+    entrypoint: yarn
+    dir: gcpfirebasefront
+    args: [ 'build' ]
+
+  - id: 'deploy-firebase'
+    waitFor: [ 'build-front' ]
+    name: gcr.io/$PROJECT_ID/firebase
+    args: [ 'deploy', '--project=$PROJECT_ID', '--only', 'hosting' ]
+    dir: gcpfirebasefront
 
 images:
   - 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA'
