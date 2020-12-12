@@ -8,7 +8,7 @@ steps:
     args:
       - '-c'
       - |
-        gsutil cp gs://${PROJECT_ID}_cloudbuild/cache/maven-dependencies.tgz maven-dependencies.tgz || exit 0
+        gsutil cp gs://${PROJECT_ID}-cache-dependencies/cache/maven-dependencies.tgz maven-dependencies.tgz || exit 0
         tar -zxf maven-dependencies.tgz --directory / || exit 0
 
   - id: 'build-project'
@@ -65,7 +65,7 @@ steps:
       - '-c'
       - |
         tar -zcf maven-dependencies.tgz /root/.m2
-        gsutil cp maven-dependencies.tgz gs://${PROJECT_ID}_cloudbuild/cache/maven-dependencies.tgz
+        gsutil cp maven-dependencies.tgz gs://${PROJECT_ID}-cache-dependencies/cache/maven-dependencies.tgz
 
 images:
   - 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA'
