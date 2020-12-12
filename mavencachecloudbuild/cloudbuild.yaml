@@ -1,16 +1,16 @@
 steps:
   - id: 'build-project'
     name: adoptopenjdk/openjdk11:jdk-11.0.8_10
+    dir: mavencachecloudbuil/gcpcloudrunback
     entrypoint: bash
     args:
       - '-c'
       - |
-        pwd
-        ls -lrt
+        ./mvnw install
 
   - id: 'dockerize-project'
     name: gcr.io/cloud-builders/docker
-    dir: gcpcloudrunback
+    dir: mavencachecloudbuil/gcpcloudrunback
     args: [ 'build',
             '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA',
             '-t', 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:latest',
@@ -22,7 +22,7 @@ steps:
 
   - id: 'deploy-cloud-run'
     name: gcr.io/cloud-builders/gcloud
-    dir: gcpcloudrunback
+    dir: mavencachecloudbuil/gcpcloudrunback
     entrypoint: bash
     args:
       - '-c'
