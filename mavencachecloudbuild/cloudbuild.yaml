@@ -1,7 +1,6 @@
 steps:
   - id: 'build-project'
     name: adoptopenjdk/openjdk11:jdk-11.0.8_10
-    dir: gcpcloudrunback
     entrypoint: bash
     args: ['ls', '-lrt']
 
