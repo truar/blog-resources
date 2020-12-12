@@ -3,7 +3,7 @@ steps:
     name: adoptopenjdk/openjdk11:jdk-11.0.8_10
     dir: gcpcloudrunback
     entrypoint: bash
-    args: ['./mvnw', 'install']
+    args: ['ls', '-lrt']
 
   - id: 'dockerize-project'
     name: gcr.io/cloud-builders/docker
