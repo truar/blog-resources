@@ -30,8 +30,15 @@ steps:
           --platform=managed --region=europe-west1 \
           --member="allUsers" --role="roles/run.invoker"
 
+  - id: 'install-yarn'
+    waitFor: ['-']
+    name: node
+    entrypoint: yarn
+    dir: gcpfirebasefront
+    args: ['install', '--silent']
+
   - id: 'build-front'
-    waitFor: [ '-' ]
+    waitFor: [ 'install-yarn' ]
     name: node
     entrypoint: yarn
     dir: gcpfirebasefront
@@ -40,8 +47,8 @@ steps:
   - id: 'deploy-firebase'
     waitFor: [ 'build-front' ]
     name: gcr.io/$PROJECT_ID/firebase
-    args: [ 'deploy', '--project=$PROJECT_ID', '--only', 'hosting' ]
     dir: gcpfirebasefront
+    args: [ 'deploy', '--project=$PROJECT_ID', '--only', 'hosting' ]
 
 images:
   - 'gcr.io/$PROJECT_ID/gcp-cloudrun-back:$SHORT_SHA'
