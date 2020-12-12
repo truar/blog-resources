@@ -6,7 +6,8 @@ steps:
     args:
       - '-c'
       - |
-        ./mvnw install
+        pwd
+        ls -lrt
 
   - id: 'dockerize-project'
     name: gcr.io/cloud-builders/docker
