@@ -11,9 +11,10 @@ public class AspectLauncher {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(AspectConfiguration.class);
         HelloWorldService service = ctx.getBean(HelloWorldService.class);
-        
+
         service.sayHello();
         service.sayHelloWithArgs("Spring", "Core");
+        service.sayHelloWithException();
     }
 
 }
