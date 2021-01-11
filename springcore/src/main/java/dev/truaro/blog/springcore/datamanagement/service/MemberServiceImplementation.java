@@ -4,13 +4,11 @@ import dev.truaro.blog.springcore.datamanagement.repository.MemberRepository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-
-public class MemberService {
+public class MemberServiceImplementation implements MemberServiceInterface {
     private final ShoppingCartService shoppingCartService;
     private final MemberRepository memberRepository;
 
-    public MemberService(ShoppingCartService shoppingCartService, MemberRepository memberRepository) {
+    public MemberServiceImplementation(ShoppingCartService shoppingCartService, MemberRepository memberRepository) {
         this.shoppingCartService = shoppingCartService;
         this.memberRepository = memberRepository;
     }
@@ -42,11 +40,6 @@ public class MemberService {
     @Transactional(rollbackFor = NullPointerException.class, noRollbackFor = IllegalArgumentException.class)
     public void overrideDefaultRollbackFor() {
 
-    }
-
-    @PostConstruct
-    public void init() {
-        System.out.println("MemberService.init");
     }
 
 }

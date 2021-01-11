@@ -4,6 +4,8 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import dev.truaro.blog.springcore.datamanagement.repository.MemberRepository;
 import dev.truaro.blog.springcore.datamanagement.repository.OrderRepository;
 import dev.truaro.blog.springcore.datamanagement.service.MemberService;
+import dev.truaro.blog.springcore.datamanagement.service.MemberServiceImplementation;
+import dev.truaro.blog.springcore.datamanagement.service.MemberServiceInterface;
 import dev.truaro.blog.springcore.datamanagement.service.ShoppingCartService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +49,11 @@ public class DataConfiguration {
     @Bean
     public MemberService memberService(ShoppingCartService shoppingCartService, MemberRepository memberRepository) {
         return new MemberService(shoppingCartService, memberRepository);
+    }
+
+    @Bean
+    public MemberServiceInterface memberService2(ShoppingCartService shoppingCartService, MemberRepository memberRepository) {
+        return new MemberServiceImplementation(shoppingCartService, memberRepository);
     }
 
     @Bean

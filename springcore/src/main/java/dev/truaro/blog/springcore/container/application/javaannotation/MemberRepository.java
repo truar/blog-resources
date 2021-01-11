@@ -10,4 +10,8 @@ public class MemberRepository {
     public void initWithInitMethod() {
         System.out.println(databaseUrl);
     }
+
+    private void cleanUpWithDestroyMethod() {
+        System.out.println("MemberRepository.cleanUpWithDestroyMethod");
+    }
 }
