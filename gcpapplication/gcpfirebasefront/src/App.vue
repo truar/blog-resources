@@ -11,9 +11,11 @@ export default {
   components: {
     HelloWorld
   },
-  data: () => ({
-    message: 'Loading...'
-  }),
+  data() {
+    return {
+      message: 'Loading...'
+    };
+  },
   async created() {
     const response = await fetch('/api/')
     this.message = await response.text()
