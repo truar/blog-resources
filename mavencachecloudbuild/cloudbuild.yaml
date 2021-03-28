@@ -12,7 +12,7 @@ steps:
         tar -zxf maven-dependencies.tgz --directory / || exit 0
 
   - id: 'build-project'
-    name: adoptopenjdk/openjdk11:jdk-11.0.8_10
+    name: adoptopenjdk/openjdk11:jdk-11.0.8_10-alpine-slim
     dir: mavencachecloudbuild/gcpcloudrunback
     entrypoint: bash
     volumes:
