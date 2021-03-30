@@ -1,0 +1,25 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: gcp-cloudrun-back
+  labels:
+    cloud.googleapis.com/location: europe-west1
+  annotations:
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '$SCALING_INSTANCE_COUNT'
+    spec:
+      serviceAccountName: gcp-cloudrun-back
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+        - image: gcr.io/$PROJECT_ID/gcp-cloudrun-back:$IMAGE_VERSION
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 256Mi
+  traffic:
+    - percent: 100
+      latestRevision: true
