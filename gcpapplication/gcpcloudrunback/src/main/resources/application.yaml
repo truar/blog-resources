@@ -1,0 +1,12 @@
+server:
+  port: ${PORT:8080}
+  servlet.context-path: /api
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
