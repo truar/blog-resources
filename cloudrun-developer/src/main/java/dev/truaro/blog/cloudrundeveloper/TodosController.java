@@ -17,7 +17,6 @@ public class TodosController {
 
     @PostMapping
     public void createTodo(@RequestBody CreateTodoDTO createTodoDTO) {
-        logger.info(createTodoDTO.toString());
         Todo todo = new Todo(createTodoDTO.task, createTodoDTO.dueDate);
         todosRepository.save(todo);
         logger.info("New Todo created :" + todo.getId());
