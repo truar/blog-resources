@@ -11,8 +11,10 @@ public class HelloWorldController {
 
     @GetMapping("/")
     public String helloWorld() {
-        logger.info("Hello World. I am deployed automatically");
+        logger.info("An info message");
+        logger.debug("A debug message");
+        logger.error("An error message");
+        logger.warn("A warn message");
         return "Hello World. I am deployed automatically";
     }
-
 }

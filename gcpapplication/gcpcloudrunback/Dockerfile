@@ -11,6 +11,9 @@ RUN mvn package
 # Use AdoptOpenJDK for base image.
 FROM adoptopenjdk/openjdk11:jre-11.0.8_10-alpine
 
+# Copy the jar to the production image from the builder stage.
+COPY --from=builder /app/target/*.jar /app.jar
+
 ## Add Debugger Agent
 RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/compute-java/debian-wheezy/cdbg_java_agent_gce.tar.gz \
@@ -21,8 +24,9 @@ RUN mkdir -p /opt/cprof && \
     wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
     | tar xzv -C /opt/cprof
 
-# Copy the jar to the production image from the builder stage.
-COPY --from=builder /app/target/*.jar /app.jar
-
 # Run the web service on container startup.
-CMD ["java", "-jar", "/app.jar"]
+CMD ["java", \
+    "-Dcom.google.cdbg.breakpoints.enable_canary=true", \
+    "-jar", \
+    "/app.jar"]
+
